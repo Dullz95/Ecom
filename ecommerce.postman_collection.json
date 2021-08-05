@@ -1,0 +1,312 @@
+{
+	"info": {
+		"_postman_id": "972b62ea-64cc-4bac-afc4-1a8f53b82138",
+		"name": "ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "first_name",
+							"value": "justing",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "cal",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "justin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "abdullah@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/registration/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"registration",
+						""
+					],
+					"query": [
+						{
+							"key": "first_name",
+							"value": "Abdullah",
+							"disabled": true
+						},
+						{
+							"key": "last_name",
+							"value": "isaacs",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "abdullah",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "abdullah.isaacs@gmail.com",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"justin\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/auth",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all-products",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjgxNTAzNjksImlhdCI6MTYyODE1MDA2OSwibmJmIjoxNjI4MTUwMDY5LCJpZGVudGl0eSI6Nn0.IwVIN887misgzpcjYpjeBfJ2_pzPwKhN58HGRXBIWEo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "product_name",
+							"value": "coke",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "product-type",
+							"value": "soft-drink",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "price",
+							"value": "5",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "100",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/view-all-products/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"view-all-products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit products",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjgxNTAzNjksImlhdCI6MTYyODE1MDA2OSwibmJmIjoxNjI4MTUwMDY5LCJpZGVudGl0eSI6Nn0.IwVIN887misgzpcjYpjeBfJ2_pzPwKhN58HGRXBIWEo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "product_name",
+							"value": "fanta",
+							"type": "text"
+						},
+						{
+							"key": "product_type",
+							"value": "soft-drink",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/updating-products/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"updating-products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-to-product-table",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "product_name",
+							"value": "fanta",
+							"type": "text"
+						},
+						{
+							"key": "product_type",
+							"value": "soft-drink",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/add-to-product-table/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"add-to-product-table",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete product out of cart",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MjgxNTAzNjksImlhdCI6MTYyODE1MDA2OSwibmJmIjoxNjI4MTUwMDY5LCJpZGVudGl0eSI6Nn0.IwVIN887misgzpcjYpjeBfJ2_pzPwKhN58HGRXBIWEo",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/delete-product/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"delete-product",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
