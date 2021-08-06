@@ -6,6 +6,8 @@ from flask_jwt import JWT, jwt_required, current_identity
 from flask_cors import CORS
 from flask_mail import Mail, Message
 import re
+import cloudinary
+import cloudinary.uploader
 
 # email validation
 regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
@@ -48,6 +50,20 @@ class Database(object):
     # function to fetch data for SELECT query
     def fetching(self):
         return self.cursor.fetchall()
+
+# function to upload image into table
+def image_file():
+    app.logger.info('in upload route')
+    cloudinary.config(cloud_name ="djcpeeu7k", api_key="168276427645577",
+                      api_secret="z7qzuUnTfhyh9ylrxV0UXM_SvPc")
+    upload_result = None
+    if request.method == 'POST':
+        image = request.files['product-image']
+        app.logger.info('%s file_to_upload', image)
+        if image:
+            upload_result = cloudinary.uploader.upload(image)
+            app.logger.info(upload_result)
+            return upload_result['url']
 
 
 # fetch username and password from the users table
@@ -99,11 +115,12 @@ def init_user_table():
 # create product table
 def init_product_table():
     with sqlite3.connect('sales.db') as conn:
-        conn.execute("CREATE TABLE IF NOT EXISTS products (product_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+        conn.execute("CREATE TABLE IF NOT EXISTS all_products (product_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                      "product_name TEXT NOT NULL,"
                      "product_type TEXT NOT NULL,"
                      "price TEXT NOT NULL,"
-                     "quantity TEXT NOT NULL)")
+                     "quantity TEXT NOT NULL,"
+                     "product_image TEXT NOT NULL)")
     print("items table created successfully")
     conn.close()
 
@@ -189,7 +206,7 @@ def delete(id):
     response = {}
     db = Database()
 
-    query = "DELETE FROM products WHERE id=" + str(id)
+    query = "DELETE FROM all_products WHERE id=" + str(id)
     db.single_commiting(query)
     #error handling to check if the id exists
     if id == []:
@@ -227,7 +244,7 @@ def view_all():
     response = {}
     db = Database()
 
-    query = "SELECT * FROM  products"
+    query = "SELECT * FROM  all_products"
     db.single_commiting(query)
 
     response['status_code'] = 200
@@ -249,17 +266,20 @@ def add():
         product_type = request.form['product_type']
         price = request.form['price']
 
-        if quantity or price != int:
-            return "Please enter integer values for price and quantity"
-        else:
-
-            query = "INSERT INTO products(""product_name,product_type,price,quantity) VALUES(?, ?, ?, ?)"
-            values = product_name, product_type, price, quantity
+        try:
+            testq = int(quantity)
+            testp = int(price)
+            query = "INSERT INTO all_products(product_name,product_type,price,quantity, product_image) VALUES(?, ?, ?, ?, ?)"
+            values = product_name, product_type, price, quantity, image_file()
             db.commiting(query, values)
             response["status_code"] = 201
             response['description'] = "item added successfully"
 
             return response
+
+        except ValueError:
+            return "Please enter integer values for price and quantity"
+
 
 
 # create end-point to edit existing products/
@@ -279,7 +299,7 @@ def edit(product_id):
             return "Please enter integer values for price and quantity"
         else:
 
-            query = "UPDATE product SET product_name=?, product_type=?, price=?, quantity=?" \
+            query = "UPDATE all_products SET product_name=?, product_type=?, price=?, quantity=?" \
                     " WHERE product_id='" + str(product_id) + "'"
             values = product_name, product_type, price, quantity
 
