@@ -57,7 +57,7 @@ def image_file():
     cloudinary.config(cloud_name ="djcpeeu7k", api_key="168276427645577",
                       api_secret="z7qzuUnTfhyh9ylrxV0UXM_SvPc")
     upload_result = None
-    if request.method == 'POST':
+    if request.method == 'POST' or request.method =='PUT':
         image = request.files['product-image']
         app.logger.info('%s file_to_upload', image)
         if image:
@@ -299,9 +299,9 @@ def edit(product_id):
             testq = int(quantity)
             testp = int(price)
 
-            query = "UPDATE all_products SET product_name=?, product_type=?, price=?, quantity=?" \
+            query = "UPDATE all_products SET product_name=?, product_type=?, price=?, quantity=?, product_image=?" \
                     " WHERE product_id='" + str(product_id) + "'"
-            values = product_name, product_type, price, quantity
+            values = product_name, product_type, price, quantity, image_file()
 
             db.commiting(query, values)
 
