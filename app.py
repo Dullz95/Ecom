@@ -23,13 +23,13 @@ class User(object):
 
 # create class(object) for products
 class Product(object):
-    def __init__(self, product_id, product_name, product_type, price, quantity):
+    def __init__(self, product_id, product_name, product_type, price, quantity, product_image):
         self.product_id = product_id
         self.product_name = product_name
         self.product_type = product_type
         self.price = price
         self.quantity = quantity
-
+        self.image = product_image
 
 # create class (object) for Database functions
 class Database(object):
@@ -83,13 +83,13 @@ def fetch_users():
 def fetch_products():
     with sqlite3.connect('sales.db') as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM products")
+        cursor.execute("SELECT * FROM all_products")
         products = cursor.fetchall()
 
         new_data = []
 
         for data in products:
-            new_data.append(Product(data[0], data[1], data[2], data[3], data[4]))
+            new_data.append(Product(data[0], data[1], data[2], data[3], data[4], data[5]))
     return new_data
 
 #
@@ -200,13 +200,13 @@ def user_registration():
 
 
 # create end-point to delete products
-@app.route("/delete-product/<int:id>")
+@app.route("/delete-product/<int:product_id>")
 @jwt_required()
-def delete(id):
+def delete(product_id):
     response = {}
     db = Database()
 
-    query = "DELETE FROM all_products WHERE id=" + str(id)
+    query = "DELETE FROM all_products WHERE product_id=" + str(product_id)
     db.single_commiting(query)
     #error handling to check if the id exists
     if id == []:
@@ -295,9 +295,9 @@ def edit(product_id):
         price = request.form['price']
         quantity = request.form['quantity']
 
-        if quantity or price != int:
-            return "Please enter integer values for price and quantity"
-        else:
+        try:
+            testq = int(quantity)
+            testp = int(price)
 
             query = "UPDATE all_products SET product_name=?, product_type=?, price=?, quantity=?" \
                     " WHERE product_id='" + str(product_id) + "'"
@@ -307,7 +307,11 @@ def edit(product_id):
 
             response['message'] = 200
             response['message'] = "Product successfully updated "
+
             return response
+
+        except ValueError:
+            return "Please enter integer values for price and quantity"
 
 
 if __name__ == '__main__':
