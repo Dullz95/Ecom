@@ -96,7 +96,7 @@ def fetch_products():
 # # call function to fetch username and password
 users = fetch_users()
 # # call function to fetch all products
-products = fetch_products()
+allproducts = fetch_products()
 
 
 # create user table
