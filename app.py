@@ -203,6 +203,7 @@ def user_registration():
 @app.route("/delete-product/<int:product_id>")
 
 def delete(product_id):
+    jwt_required()
     response = {}
     db = Database()
 
@@ -221,6 +222,7 @@ def delete(product_id):
 @app.route("/view-profile/<int:user_id>", methods=["GET"])
 
 def view_profile(user_id):
+    jwt_required()
     response = {}
     db = Database()
 
@@ -241,6 +243,7 @@ def view_profile(user_id):
 @app.route("/view-all-products/", methods=["GET"])
 
 def view_all():
+    
     response = {}
     db = Database()
 
@@ -257,6 +260,7 @@ def view_all():
 @app.route("/add-to-product-table/", methods=["POST"])
 
 def add():
+    jwt_required()
     response = {}
     db = Database()
 
@@ -286,6 +290,7 @@ def add():
 @app.route("/updating-products/<int:product_id>", methods=["PUT"])
 
 def edit(product_id):
+    jwt_required()
     response = {}
     db = Database()
 
