@@ -153,8 +153,8 @@ app.debug = True
 app.config['SECRET_KEY'] = 'super-secret'
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'abdullahtest585@gmail.com'
-app.config['MAIL_PASSWORD'] = 'testing0909'
+app.config['MAIL_USERNAME'] = 'lottoemail123@gmail.com'
+app.config['MAIL_PASSWORD'] = 'MonkeyVillage123'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -188,7 +188,7 @@ def user_registration():
             values = first_name, last_name, username, password, email
             db.commiting(query, values)
             mail = Mail(app)
-            msg = Message('Successfully registered', sender='abdullahtest585@gmail.com', recipients=[email])
+            msg = Message('Successfully registered', sender='lottoemail123@gmail.com', recipients=[email])
             msg.body = "Welcome to the future"
             mail.send(msg)
             response["message"] = "success"
