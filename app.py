@@ -183,21 +183,21 @@ def user_registration():
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
-        if (re.search(regex,email)):
+        # if (re.search(regex,email)):
 
-            query = "INSERT INTO user(first_name,last_name,username,password,email) VALUES(?, ?, ?, ?, ?)"
-            values = first_name, last_name, username, password, email
-            db.commiting(query, values)
-            mail = Mail(app)
-            msg = Message('Successfully registered', sender='abdullahtest585@gmail.com', recipients=[email])
-            msg.body = "Welcome to the future"
-            mail.send(msg)
-            response["message"] = "success"
-            response["status_code"] = 201
-            return response and redirect("/https://ecommerce-abdullah.herokuapp.com/view-all-products/")
+        query = "INSERT INTO user(first_name,last_name,username,password,email) VALUES(?, ?, ?, ?, ?)"
+        values = first_name, last_name, username, password, email
+        db.commiting(query, values)
+        mail = Mail(app)
+        msg = Message('Successfully registered', sender='abdullahtest585@gmail.com', recipients=[email])
+        msg.body = "Welcome to the future"
+        mail.send(msg)
+        response["message"] = "success"
+        response["status_code"] = 201
+        return response and redirect("/https://ecommerce-abdullah.herokuapp.com/view-all-products/")
 
-        else:
-            return "Error Invalid Email"
+        # else:
+        #     return "Error Invalid Email"
 
 
 # create end-point to delete products
