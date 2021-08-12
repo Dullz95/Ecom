@@ -301,10 +301,10 @@ def edit(product_id):
     db = Database()
 
     if request.method == "PUT":
-        product_name = request.form['product_name']
-        product_type = request.form['product_type']
-        price = request.form['price']
-        quantity = request.form['quantity']
+        product_name = request.json['product_name']
+        product_type = request.json['product_type']
+        price = request.json['price']
+        quantity = request.json['quantity']
 
         try:
             testq = int(quantity)
