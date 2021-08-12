@@ -149,7 +149,7 @@ def identity(payload):
 
 # app configuration
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*":{"origins": "*"}})
 app.debug = True
 app.config['SECRET_KEY'] = 'super-secret'
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
