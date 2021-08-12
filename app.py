@@ -158,6 +158,7 @@ app.config['MAIL_USERNAME'] = 'abdullah.isaacs@gmail.com'
 app.config['MAIL_PASSWORD'] = 'yolo0909!'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
+app.config['CORS_HEADERS'] = ['Content-Type']
 
 jwt = JWT(app, authenticate, identity)
 
