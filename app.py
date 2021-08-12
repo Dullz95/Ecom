@@ -8,6 +8,7 @@ from flask_mail import Mail, Message
 import re
 import cloudinary
 import cloudinary.uploader
+from werkzeug.utils import redirect
 
 # email validation
 regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
@@ -193,7 +194,7 @@ def user_registration():
             mail.send(msg)
             response["message"] = "success"
             response["status_code"] = 201
-            return response
+            return response and redirect("/https://ecommerce-abdullah.herokuapp.com/view-all-products/")
 
         else:
             return "Error Invalid Email"
