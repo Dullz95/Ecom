@@ -263,7 +263,7 @@ def view_all():
 # end-point to allow the owner of the business to add products to the list of products available
 @app.route("/add-to-product-table/", methods=["POST"])
 @jwt_required()
-@cross_origin()
+# @cross_origin()
 def add():
 
     response = {}
