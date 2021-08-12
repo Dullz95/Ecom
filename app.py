@@ -291,9 +291,10 @@ def add():
 
 # create end-point to edit existing products/
 @app.route("/updating-products/<int:product_id>", methods=["PUT"])
-
+@jwt_required()
+@cross_origin()
 def edit(product_id):
-    jwt_required()
+
     response = {}
     db = Database()
 
