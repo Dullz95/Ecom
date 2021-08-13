@@ -203,8 +203,8 @@ def user_registration():
 
 # create end-point to delete products
 @app.route("/delete-product/<int:product_id>")
-@jwt_required()
-@cross_origin()
+# @jwt_required()
+# @cross_origin()
 def delete(product_id):
 
     response = {}
@@ -223,8 +223,8 @@ def delete(product_id):
 
 # create end-point to allow the user to view their profile
 @app.route("/view-profile/<int:user_id>", methods=["GET"])
-@jwt_required()
-@cross_origin()
+# @jwt_required()
+# @cross_origin()
 def view_profile(user_id):
 
     response = {}
@@ -262,7 +262,7 @@ def view_all():
 
 # end-point to allow the owner of the business to add products to the list of products available
 @app.route("/add-to-product-table/", methods=["POST"])
-@jwt_required()
+# @jwt_required()
 # @cross_origin()
 def add():
 
@@ -293,8 +293,8 @@ def add():
 
 # create end-point to edit existing products/
 @app.route("/updating-products/<int:product_id>", methods=["PUT"])
-@jwt_required()
-@cross_origin()
+# @jwt_required()
+# @cross_origin()
 def edit(product_id):
 
     response = {}
