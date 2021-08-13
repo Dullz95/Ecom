@@ -287,7 +287,10 @@ def add():
             return response
 
         except ValueError:
-            return "Please enter integer values for price and quantity"
+            return {
+                "error": "failed to insert into DB"
+            }
+
 
 
 
