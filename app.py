@@ -258,7 +258,7 @@ def delete_profile(email):
     response = {}
     db = Database()
 
-    query = "DELETE FROM user WHERE email=" + email
+    query = "DELETE FROM user WHERE email='" + email + "'"
     db.single_commiting(query)
     #error handling to check if the id exists
     if email == []:
