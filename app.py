@@ -249,6 +249,26 @@ def delete(product_id):
         response['message'] = "item deleted successfully."
         return response
 
+# create end-point to delete user
+@app.route("/delete-profile/<email>")
+# @jwt_required()
+# @cross_origin()
+def delete_profile(email):
+
+    response = {}
+    db = Database()
+
+    query = "DELETE FROM user WHERE email=" + email
+    db.single_commiting(query)
+    #error handling to check if the id exists
+    if email == []:
+        return "user does not exist"
+    else:
+        response['status_code'] = 200
+        response['message'] = "profile deleted successfully."
+        return response
+
+
 
 # create end-point to allow the user to view their profile
 @app.route("/view-profile/<email>", methods=["GET"])
@@ -259,7 +279,7 @@ def view_profile(email):
     response = {}
     db = Database()
 
-    query = "SELECT * FROM user WHERE email= " + email
+    query = "SELECT * FROM user WHERE email= '" + email + "'"
     db.single_commiting(query)
 
     if email == []:
@@ -355,6 +375,34 @@ def edit(product_id):
 
         except ValueError:
             return "Please enter integer values for price and quantity"
+
+# create end-point to edit existing profiles/
+@app.route("/updating-profile/<email>", methods=["PUT"])
+# @jwt_required()
+# @cross_origin()
+def edit(email):
+
+    response = {}
+    db = Database()
+
+    if request.method == "PUT":
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+
+        query = "UPDATE user SET first_name=?, last_name=?, username=?, password=?, email=?" \
+                " WHERE email='" + email + "'"
+        values = first_name, last_name, username, password, email
+
+        db.commiting(query, values)
+
+        response['message'] = 200
+        response['message'] = "Profile successfully updated "
+
+        return response
+
 
 
 if __name__ == '__main__':
