@@ -21,6 +21,12 @@ class User(object):
         self.password = password
         self.email = email
 
+# class Admin(object):
+#     def __init__(self, admin_id, admin_username, admin_password):
+#         self.admin_id = admin_id
+#         self.admin_username = admin_username
+#         self.admin_password = admin_password
+
 
 # create class(object) for products
 class Product(object):
@@ -93,11 +99,27 @@ def fetch_products():
             new_data.append(Product(data[0], data[1], data[2], data[3], data[4], data[5]))
     return new_data
 
+# def fetch_admin():
+#     with sqlite3.connect('shopping.db') as conn:
+#         cursor = conn.cursor()
+#         cursor.execute("SELECT * FROM admin")
+#         users_data = cursor.fetchall()
+#
+#         new_data = []
+#
+#         for data in users_data:
+#             new_data.append(Admin(data[0], data[1], data[2]))
+#
+#         return new_data
+
 #
 # # call function to fetch username and password
 users = fetch_users()
 # # call function to fetch all products
 allproducts = fetch_products()
+
+#fetch admin
+# admin = fetch_admin()
 
 
 # create user table
@@ -125,11 +147,19 @@ def init_product_table():
     print("items table created successfully")
     conn.close()
 
+# def init_admin_table():
+#     with sqlite3.connect('sales.db') as conn:
+#         conn.execute("CREATE TABLE IF NOT EXISTS admin(admin_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+#                      "admin_username TEXT NOT NULL,"
+#                      "admin_password TEXT NOT NULL)")
+#         print("admin table created successfully")
+
 
 # calling function to create the three tables above
 init_user_table()
 # init_cart_table()
 init_product_table()
+# init_admin_table()
 
 # fetch data to use for JWT token
 username_table = {u.username: u for u in users}
@@ -197,8 +227,6 @@ def user_registration():
         response["status_code"] = 201
         return response
 
-        # else:
-        #     return "Error Invalid Email"
 
 
 # create end-point to delete products
@@ -222,18 +250,18 @@ def delete(product_id):
 
 
 # create end-point to allow the user to view their profile
-@app.route("/view-profile/<int:user_id>", methods=["GET"])
+@app.route("/view-profile/<email>", methods=["GET"])
 # @jwt_required()
 # @cross_origin()
-def view_profile(user_id):
+def view_profile(email):
 
     response = {}
     db = Database()
 
-    query = "SELECT * FROM user WHERE user_id= " + str(user_id)
+    query = "SELECT * FROM user WHERE email= " + email
     db.single_commiting(query)
 
-    if user_id == []:
+    if email == []:
 
         return "User does not exist"
     else:
