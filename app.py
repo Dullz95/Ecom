@@ -271,7 +271,7 @@ def delete_profile(email):
 
 
 # create end-point to allow the user to view their profile
-@app.route("/view-profile/<email>", methods=["GET"])
+@app.route("/view-profile/<email>/", methods=["GET"])
 # @jwt_required()
 # @cross_origin()
 def view_profile(email):
@@ -377,10 +377,10 @@ def edit(product_id):
             return "Please enter integer values for price and quantity"
 
 # create end-point to edit existing profiles/
-@app.route("/updating-profile/<email>", methods=["PUT"])
+@app.route("/updating-profile/<emailv>", methods=["PUT"])
 # @jwt_required()
 # @cross_origin()
-def edit(email):
+def edit_user(emailv):
 
     response = {}
     db = Database()
@@ -393,7 +393,7 @@ def edit(email):
         email = request.form['email']
 
         query = "UPDATE user SET first_name=?, last_name=?, username=?, password=?, email=?" \
-                " WHERE email='" + email + "'"
+                " WHERE email='" + emailv + "'"
         values = first_name, last_name, username, password, email
 
         db.commiting(query, values)
