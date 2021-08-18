@@ -386,11 +386,11 @@ def edit_user(emailv):
     db = Database()
 
     if request.method == "PUT":
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
-        username = request.form['username']
-        password = request.form['password']
-        email = request.form['email']
+        first_name = request.json['first_name']
+        last_name = request.json['last_name']
+        username = request.json['username']
+        password = request.json['password']
+        email = request.json['email']
 
         query = "UPDATE user SET first_name=?, last_name=?, username=?, password=?, email=?" \
                 " WHERE email='" + emailv + "'"
