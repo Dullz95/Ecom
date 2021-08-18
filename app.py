@@ -53,6 +53,7 @@ class Database(object):
     # function for executing SELECT query
     def single_commiting(self, query):
         self.cursor.execute(query)
+        self.conn.commit()
 
     # function to fetch data for SELECT query
     def fetching(self):
