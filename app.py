@@ -300,7 +300,7 @@ def view_product(product_id):
     response = {}
     db = Database()
 
-    query = "SELECT * FROM all_products WHERE product_id= '" + str(product_id) + "'"
+    query = "SELECT * FROM all_products WHERE product_id='" + str(product_id) + "'"
     db.single_commiting(query)
 
     if db.fetching() == []:
