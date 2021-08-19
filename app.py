@@ -59,6 +59,10 @@ class Database(object):
     def fetching(self):
         return self.cursor.fetchall()
 
+    def select_product(self, query):
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
+
 # function to upload image into table
 def image_file():
     app.logger.info('in upload route')
@@ -301,14 +305,14 @@ def view_product(product_id):
     db = Database()
 
     query = "SELECT * FROM all_products WHERE product_id='" + str(product_id) + "'"
-    db.single_commiting(query)
+    data = db.select_product(query)
 
-    if db.fetching() == []:
+    if data == []:
 
         return "product does not exist"
     else:
         response['status_code'] = 200
-        response['data'] = db.fetching()
+        response['data'] = data
 
         return response
 
