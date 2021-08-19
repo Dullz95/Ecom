@@ -66,7 +66,7 @@ def image_file():
                       api_secret="z7qzuUnTfhyh9ylrxV0UXM_SvPc")
     upload_result = None
     if request.method == 'POST' or request.method =='PUT':
-        image = request.form['product_image']
+        image = request.json['product_image']
         app.logger.info('%s file_to_upload', image)
         if image:
             upload_result = cloudinary.uploader.upload(image)
@@ -340,10 +340,10 @@ def add():
     db = Database()
 
     if request.method == "POST":
-        product_name = request.form['product_name']
-        quantity = request.form['quantity']
-        product_type = request.form['product_type']
-        price = request.form['price']
+        product_name = request.json['product_name']
+        quantity = request.json['quantity']
+        product_type = request.json['product_type']
+        price = request.json['price']
 
         try:
             testq = int(quantity)
