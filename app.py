@@ -66,7 +66,7 @@ def image_file():
                       api_secret="z7qzuUnTfhyh9ylrxV0UXM_SvPc")
     upload_result = None
     if request.method == 'POST' or request.method =='PUT':
-        image = request.json['product_image']
+        image = request.form['product_image']
         app.logger.info('%s file_to_upload', image)
         if image:
             upload_result = cloudinary.uploader.upload(image)
@@ -282,9 +282,30 @@ def view_profile(email):
     query = "SELECT * FROM user WHERE email= '" + email + "'"
     db.single_commiting(query)
 
-    if email == []:
+    if db.fetching() == []:
 
         return "User does not exist"
+    else:
+        response['status_code'] = 200
+        response['data'] = db.fetching()
+
+        return response
+
+# select a product
+@app.route("/view-product/<int:product_id>/", methods=["GET"])
+# @jwt_required()
+# @cross_origin()
+def view_product(product_id):
+
+    response = {}
+    db = Database()
+
+    query = "SELECT * FROM all_products WHERE product_id= '" + str(product_id) + "'"
+    db.single_commiting(query)
+
+    if db.fetching() == []:
+
+        return "product does not exist"
     else:
         response['status_code'] = 200
         response['data'] = db.fetching()
@@ -319,10 +340,10 @@ def add():
     db = Database()
 
     if request.method == "POST":
-        product_name = request.json['product_name']
-        quantity = request.json['quantity']
-        product_type = request.json['product_type']
-        price = request.json['price']
+        product_name = request.form['product_name']
+        quantity = request.form['quantity']
+        product_type = request.form['product_type']
+        price = request.form['price']
 
         try:
             testq = int(quantity)
