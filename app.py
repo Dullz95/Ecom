@@ -199,7 +199,7 @@ jwt = JWT(app, authenticate, identity)
 
 
 @app.route('/protected')
-@jwt_required()
+# @jwt_required()
 def protected():
     return '%s' % current_identity
 
@@ -283,7 +283,7 @@ def view_profile(email):
     response = {}
     db = Database()
 
-    query = "SELECT * FROM user WHERE email='" + email + "'"
+    query = "SELECT * FROM user WHERE email='" + str(email) + "'"
     db.single_commiting(query)
 
     if db.fetching() == []:
