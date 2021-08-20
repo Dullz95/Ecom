@@ -283,7 +283,7 @@ def view_profile(email):
     response = {}
     db = Database()
 
-    query = "SELECT * FROM user WHERE email= '" + email + "'"
+    query = "SELECT * FROM user WHERE email='" + email + "'"
     db.single_commiting(query)
 
     if db.fetching() == []:
