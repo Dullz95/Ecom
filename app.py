@@ -63,6 +63,8 @@ class Database(object):
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
+    de
+
 # function to upload image into table
 def image_file():
     app.logger.info('in upload route')
@@ -284,9 +286,9 @@ def view_profile(email):
     db = Database()
 
     query = "SELECT * FROM user WHERE email='" + email + "'"
-    db.single_commiting(query)
+    data = db.select_product(query)
 
-    if db.fetching() == []:
+    if data == []:
 
         return "User does not exist"
     else:
