@@ -214,11 +214,11 @@ def user_registration():
     db = Database()
 
     if request.method == "POST":
-        first_name = request.json['first_name']
-        last_name = request.json['last_name']
-        username = request.json['username']
-        password = request.json['password']
-        email = request.json['email']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
         # if (re.search(regex,email)):
 
         query = "INSERT INTO user(first_name,last_name,username,password,email) VALUES(?, ?, ?, ?, ?)"
